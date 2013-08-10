@@ -19,12 +19,11 @@ function y=river(x,n)
     [r,c]=size(x);
     y=x;
     [min,max]=arrayminmax(y);
-    diff=abs(max-min)/6;
-    riverarr(r,c)=0;
+    diff=abs(max-min)/2;
     for trash=1:n 
         count=0;
         pond=0;
-        riverarr(:,:)=0;
+        riverarr(r,c)=0;
         [currx,curry]=highLowPoint(x,1);
         old=[-1,-1];
         while (currx<r-1&&currx>=2&&curry<c-1&&curry>=2&&pond==0)
@@ -50,7 +49,7 @@ function y=river(x,n)
             currx=nextx;
             curry=nexty;
         end
-        riverarr=flattenriv(riverarr,diff);
+        riverarr=flattenriv(riverarr);
         y=y-riverarr;
     end
 end
@@ -140,7 +139,6 @@ function [maxx,maxy] = maxxy(x)
 end
 
 function y=flattenriv(x,diff)
-    y=x;
     [r,c]=size(x);
         for i=2:r-1
             for j=2:c-1
@@ -155,6 +153,8 @@ function y=flattenriv(x,diff)
                 end
             end
         end
+    surf(x);figure(gcf);
+    pause(1);
     y=x;
     
 end
